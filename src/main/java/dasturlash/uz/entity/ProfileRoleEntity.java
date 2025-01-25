@@ -29,44 +29,4 @@ public class ProfileRoleEntity {
 
     @Column(name = "created_date")
     private LocalDateTime createdAt;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Long getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(Long profileId) {
-        this.profileId = profileId;
-    }
-
-    public ProfileEntity getProfile() {
-        return profile;
-    }
-
-    public void setProfile(ProfileEntity profile) {
-        this.profile = profile;
-    }
-
-    public ProfileRole getRoles() {
-        return roles;
-    }
-
-    public void setRoles(ProfileRole roles) {
-        this.roles = roles;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }
