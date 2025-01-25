@@ -29,7 +29,7 @@ public class AuthService {
                       profileRepository.delete(profile);
                       //2 sen sms/ email for verificate
                 }
-                throw new AppBadException("Username already exists");
+                throw new AppBadException("User already exists");
             }
         ProfileEntity entity = new ProfileEntity();
             entity.setName(dto.getName());
