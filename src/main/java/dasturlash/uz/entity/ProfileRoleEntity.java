@@ -24,8 +24,8 @@ public class ProfileRoleEntity {
     private ProfileEntity profile;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "roles")
-    private ProfileRole roles;
+    @Column(name = "role")
+    private ProfileRole role;
 
     @Column(name = "created_date")
     private LocalDateTime createdAt;
