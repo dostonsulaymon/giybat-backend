@@ -28,8 +28,9 @@ public class AuthService {
                 if(profile.getStatus().equals(GeneralStatus.IN_REGISTRATION)){
                       profileRepository.delete(profile);
                       //2 sen sms/ email for verificate
+                }else {
+                    throw new AppBadException("User already exists");
                 }
-                throw new AppBadException("User already exists");
             }
         ProfileEntity entity = new ProfileEntity();
             entity.setName(dto.getName());
