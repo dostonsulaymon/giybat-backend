@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<String> handle(AppBadException e) {
-//        return ResponseEntity.badRequest().body(e.getMessage());
-//    }
+
+    @ExceptionHandler(AppBadException.class)
+    public ResponseEntity<String> handle(RuntimeException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handle(RuntimeException e) {
+    public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
         e.printStackTrace();
-        return ResponseEntity.badRequest().body(e.getMessage());
+        return ResponseEntity.internalServerError().body(e.getMessage());
     }
 }
