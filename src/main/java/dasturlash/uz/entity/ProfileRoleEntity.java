@@ -28,5 +28,5 @@ public class ProfileRoleEntity {
     private ProfileRole role;
 
     @Column(name = "created_date")
-    private LocalDateTime createdAt;
+    private LocalDateTime createDate;
 }
