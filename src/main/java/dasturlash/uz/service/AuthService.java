@@ -11,6 +11,7 @@ import dasturlash.uz.exceptions.AppBadException;
 import dasturlash.uz.repository.ProfileRepository;
 import dasturlash.uz.repository.ProfileRoleRepository;
 import dasturlash.uz.util.JwtService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -111,12 +112,14 @@ public class AuthService {
         String accessToken = jwtService.encode(dto.getUsername(), role);
         String refreshToken = jwtService.generateRefreshToken(dto.getUsername());
 
+
         return accessToken + " " + refreshToken;
     }
 
     public JwtDTO validateToken(String token) {
         try {
             return jwtService.decode(token);
+
         } catch (Exception e) {
             throw new AppBadException("Invalid token");
         }
