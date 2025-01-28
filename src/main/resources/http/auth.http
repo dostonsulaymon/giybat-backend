@@ -1,0 +1,23 @@
+#### Registration
+
+POST http://localhost:8080/auth/registration
+Content-Type: application/json
+
+{
+  "name" : "Ganish",
+  "username" : "temurabdimurodov@gmail.com",
+  "password" : "125"
+}
+
+### Registration Verificatiom
+GET http://localhost:8080/auth/registration/verification/4
+
+### Login
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "temurabdimurodov@gmail.com",
+  "password": "125"
+}
+

@@ -10,7 +10,8 @@ import dasturlash.uz.enums.ProfileRole;
 import dasturlash.uz.exceptions.AppBadException;
 import dasturlash.uz.repository.ProfileRepository;
 import dasturlash.uz.repository.ProfileRoleRepository;
-import dasturlash.uz.util.JwtUtil;
+import dasturlash.uz.util.JwtService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,6 +42,9 @@ public class AuthService {
 
     @Autowired
     private ProfileRoleRepository profileRoleRepository;
+
+    @Autowired
+    private JwtService jwtService;
 
     @Transactional
     public ResponseEntity<?> registration(RegistrationDTO dto) {
@@ -105,15 +109,17 @@ public class AuthService {
         }
 
         String role = roleList.get(0).getRole().name(); // ROLE_USER, ROLE_ADMIN
-        String accessToken = JwtUtil.encode(dto.getUsername(), role);
-        String refreshToken = JwtUtil.generateRefreshToken(dto.getUsername());
+        String accessToken = jwtService.encode(dto.getUsername(), role);
+        String refreshToken = jwtService.generateRefreshToken(dto.getUsername());
+
 
         return accessToken + " " + refreshToken;
     }
 
     public JwtDTO validateToken(String token) {
         try {
-            return JwtUtil.decode(token);
+            return jwtService.decode(token);
+
         } catch (Exception e) {
             throw new AppBadException("Invalid token");
         }
