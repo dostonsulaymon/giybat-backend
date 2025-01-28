@@ -16,31 +16,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class JwtUtil {
-    private static int tokenLiveTime; // 1-day
-    private static int refreshTokenLiveTime; // 30 days
-    private static String secretKey;
-
+public class JwtService {
     @Value("${token.live-time}")
-    public void setTokenLiveTime(int tokenLiveTime) {
-        JwtUtil.tokenLiveTime = tokenLiveTime;
-    }
-
+    private  long tokenLiveTime; // 1-day
     @Value("${refresh-token.live-time}")
-    public void setRefreshTokenLiveTime(int refreshTokenLiveTime) {
-        JwtUtil.refreshTokenLiveTime = refreshTokenLiveTime;
-    }
-
+    private  long refreshTokenLiveTime; // 30 days
     @Value("${secret-key}")
-    public void setSecretKey(String secretKey) {
-        JwtUtil.secretKey = secretKey;
-    }
+    private  String secretKey;
 
-//    private static final int tokenLiveTime = 1000 * 3600 * 24; // 1-day
-//    private static final int refreshTokenLiveTime = 1000 * 3600 * 24 * 30; // 30 days
-//    private static final String secretKey = "VGhlIHdvcmxkIGlzIGEgbGllLCBidXQgaXQgaXMgcmVhbGx5IHRydWU=";
 
-    public static String generateRefreshToken(String username) {
+    public  String generateRefreshToken(String username) {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("type", "refresh");
 
@@ -54,7 +39,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public static String encode(String username, String role) {
+    public  String encode(String username, String role) {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("role", role);
 
@@ -68,7 +53,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public static JwtDTO decode(String token) {
+    public  JwtDTO decode(String token) {
         Claims claims = Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -83,7 +68,7 @@ public class JwtUtil {
         return new JwtDTO(username, role, type);
     }
 
-    private static Key getSignInKey() {
+    private  Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
